@@ -12,6 +12,8 @@ import DrinksIdRecipeProgress from './Pages/DrinksIdRecipeProgress';
 import Profile from './Pages/Profile';
 import DoneRecipes from './Pages/DoneRecipes';
 import FavoriteRecipes from './Pages/FavoriteRecipes';
+import Login from './Pages/Login';
+
 
 function App() {
   return (
