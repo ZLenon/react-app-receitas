@@ -14,7 +14,6 @@ import DoneRecipes from './Pages/DoneRecipes';
 import FavoriteRecipes from './Pages/FavoriteRecipes';
 import Login from './Pages/Login';
 
-
 function App() {
   return (
     <Switch>
@@ -40,6 +39,7 @@ function App() {
       />
       <Route
         exact
+        path="/done-recipes"
         component={ DoneRecipes }
       />
       <Route
