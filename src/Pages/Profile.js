@@ -1,18 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../Components/Header';
+import ProfileIcon from '../Components/ProfileIcon';
 
-function DoneRecipes() {
+function Profile() {
   return (
     <>
       <Header />
-      <h1>DoneRecipes</h1>
+      <ProfileIcon />
+      <h1 data-testid="page-title">Profile</h1>
     </>
   );
 }
 
-DoneRecipes.propTypes = {
+Profile.propTypes = {
   props: PropTypes.element,
 }.insRequired;
 
-export default DoneRecipes;
+export default Profile;

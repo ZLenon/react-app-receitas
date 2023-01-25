@@ -1,12 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../Components/Header';
+import SearchIcon from '../Components/SearchIcon';
+import ProfileIcon from '../Components/ProfileIcon';
 
 function Drinks() {
   return (
     <>
       <Header />
-      <h1>Drinks</h1>
+      <SearchIcon />
+      <ProfileIcon />
+      <h1 data-testid="page-title">Drinks</h1>
     </>
   );
 }

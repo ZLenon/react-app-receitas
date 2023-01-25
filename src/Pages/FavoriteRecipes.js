@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../Components/Header';
+import ProfileIcon from '../Components/ProfileIcon';
 
 function FavoriteRecipes() {
   return (
     <>
       <Header />
-      <h1>FavoriteRecipes</h1>
+      <ProfileIcon />
+      <h1 data-testid="page-title">Favorite Recipes</h1>
     </>
   );
 }

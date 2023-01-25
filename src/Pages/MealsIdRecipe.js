@@ -1,13 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Header from '../Components/Header';
 
 function MealsIdRecipe() {
   return (
-    <>
-      <Header />
-      <h1>MealsIdRecipe</h1>
-    </>
+    <h1>MealsIdRecipe</h1>
   );
 }
 
