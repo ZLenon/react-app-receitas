@@ -1,9 +1,10 @@
+import { useHistory } from 'react-router-dom';
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 
-function Login(props) {
+function Login() {
   const [valueEmail, setEmail] = useState({ email: '' });
   const [valuePassword, setPassword] = useState('');
+  const history = useHistory();
 
   const handleEmailInput = (e) => {
     setEmail({
@@ -26,13 +27,12 @@ function Login(props) {
     const userStringfy = JSON.stringify(valueEmail);
     localStorage.setItem('user', userStringfy);
 
-    const { history } = props;
-
     history.push('/meals');
   };
 
   return (
     <div>
+      <h1>Login</h1>
       <input
         type="email"
         name="email"
@@ -55,9 +55,5 @@ function Login(props) {
     </div>
   );
 }
-
-Login.propTypes = {
-  history: PropTypes.func.isRequired,
-};
 
 export default Login;

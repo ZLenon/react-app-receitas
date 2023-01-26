@@ -1,0 +1,11 @@
+.footerCss {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: blueviolet;
+  color: black;
+  display: flex;
+  justify-content: space-between;
+  align-self: flex-end;
+}
