@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../Components/Header';
-import SearchIcon from '../Components/SearchIcon';
+import SearchIcon from '../Components/SearchBar';
 import ProfileIcon from '../Components/ProfileIcon';
 
 function Meals() {
