@@ -6,11 +6,14 @@ import { FetchLetterContext } from '../Context/FirstLetter';
 // import PropTypes from 'prop-types';
 
 function SearchIcon() {
-  const { returnApi, fetchFoodApi } = useContext(FetchFoodContext);
+  const { returnApii, fetchFoodApi } = useContext(FetchFoodContext);
   const { resultsApi, fetchNamesApi } = useContext(FetchNameContext);
   const { responseApi, firstLetterFetch } = useContext(FetchLetterContext);
+
   const [isShow, setIsShow] = useState(false);
+
   const [searchInput, setSearch] = useState('');
+
   const [allInput, setInput] = useState('');
 
   const handleAllInput = (e) => {
