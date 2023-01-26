@@ -36,8 +36,6 @@ function SearchIcon() {
       break;
     default: return null;
     }
-
-    console.log(returnApi);
   };
 
   return (
