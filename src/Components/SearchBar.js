@@ -7,9 +7,7 @@ import { FetchLetterContext } from '../Context/FirstLetter';
 
 function SearchIcon() {
   const { returnApi, fetchFoodApi } = useContext(FetchFoodContext);
-
   const { resultsApi, fetchNamesApi } = useContext(FetchNameContext);
-
   const { responseApi, firstLetterFetch } = useContext(FetchLetterContext);
   const [isShow, setIsShow] = useState(false);
   const [searchInput, setSearch] = useState('');
