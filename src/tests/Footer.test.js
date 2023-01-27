@@ -1,12 +1,12 @@
 import React from 'react';
-import { screen, render } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Footer from '../Components/Footer';
-/* import renderWithRouter from './' */
+import renderWithRouter from './renderWithRouter';
 
 describe('Testando o Componente Footer', () => {
   it('test', () => {
-    render(<Footer />);
+    const { history } = renderWithRouter(<Footer />);
 
     const drinks = screen.getByRole('img', { name: /drinkicon/i });
     const meals = screen.getByRole('img', { name: /mealicon/i });
@@ -15,6 +15,11 @@ describe('Testando o Componente Footer', () => {
     expect(meals).toBeDefined();
 
     userEvent.click(drinks);
+    const { pathname } = history.location;
+    expect(pathname).toBe('/drinks');
+
     userEvent.click(meals);
+    const { pathname: newPath } = history.location;
+    expect(newPath).toBe('/meals');
   });
 });
