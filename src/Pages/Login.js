@@ -32,20 +32,22 @@ function Login() {
 
   return (
     <div>
-      <h1>Login</h1>
+      <h3>Login</h3>
       <input
         type="email"
         name="email"
+        placeholder="Email"
         data-testid="email-input"
         onChange={ handleEmailInput }
       />
       <input
         type="password"
+        placeholder="Senha"
         data-testid="password-input"
         onChange={ (e) => setPassword(e.target.value) }
       />
       <button
-        type="submit"
+        type="button"
         data-testid="login-submit-btn"
         disabled={ !verifyInputs() }
         onClick={ handleUserInformation }
