@@ -1,4 +1,5 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useMemo, useState } from 'react';
+import propTypes from 'prop-types';
 
 export const FetchNameContext = createContext();
 
@@ -27,20 +28,23 @@ function FetchNameApi({ children }) {
     }
   };
 
-  // useEffect(() => {
-  //   const callApi = async () => {
-  //     await fetchFoodApi();
-  //   };
-
-  //   callApi();
-  // }, []);
+  const saveAllData = useMemo(() => ({
+    returnApi,
+    fetchNamesApi,
+    isLoading,
+    error,
+  }), [returnApi]);
 
   return (
-    <FetchNameContext.Provider value={ { returnApi, fetchNamesApi } }>
+    <FetchNameContext.Provider value={ saveAllData }>
       { children }
     </FetchNameContext.Provider>
 
   );
 }
+
+FetchNameApi.propTypes = {
+  children: propTypes.element.isRequired,
+};
 
 export default FetchNameApi;

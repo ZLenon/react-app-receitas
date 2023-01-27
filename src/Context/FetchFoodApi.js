@@ -1,10 +1,11 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useState, useMemo } from 'react';
+import propTypes from 'prop-types';
 
 export const FetchFoodContext = createContext();
 
 function FetchFoodApi({ children }) {
   const [isLoading, setLoading] = useState(false);
-  const [returnApi, setReturnApi] = useState();
+  const [responseApi, setReturnApi] = useState();
   const [error, setError] = useState();
 
   const fetchFoodApi = async (ingredient) => {
@@ -27,20 +28,23 @@ function FetchFoodApi({ children }) {
     }
   };
 
-  // useEffect(() => {
-  //   const callApi = async () => {
-  //     await fetchFoodApi();
-  //   };
-
-  //   callApi();
-  // }, []);
+  const saveAllData = useMemo(() => ({
+    responseApi,
+    fetchFoodApi,
+    isLoading,
+    error,
+  }), [responseApi]);
 
   return (
-    <FetchFoodContext.Provider value={ { isLoading, returnApi, error, fetchFoodApi } }>
+    <FetchFoodContext.Provider value={ saveAllData }>
       { children }
     </FetchFoodContext.Provider>
 
   );
 }
+
+FetchFoodApi.propTypes = {
+  children: propTypes.element.isRequired,
+};
 
 export default FetchFoodApi;

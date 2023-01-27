@@ -1,10 +1,11 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useMemo, useState } from 'react';
+import propTypes from 'prop-types';
 
 export const FetchLetterContext = createContext();
 
 function FirstLetter({ children }) {
   const [isLoading, setLoading] = useState(false);
-  const [responseApi, setReturnApi] = useState();
+  const [resultOfApi, setReturnApi] = useState();
   const [error, setError] = useState();
 
   const firstLetterFetch = async (firstLetter) => {
@@ -27,20 +28,23 @@ function FirstLetter({ children }) {
     }
   };
 
-  // useEffect(() => {
-  //   const callApi = async () => {
-  //     await fetchFoodApi();
-  //   };
-
-  //   callApi();
-  // }, []);
+  const saveAllData = useMemo(() => ({
+    resultOfApi,
+    firstLetterFetch,
+    isLoading,
+    error,
+  }), [resultOfApi]);
 
   return (
-    <FetchLetterContext.Provider value={ { responseApi, firstLetterFetch } }>
+    <FetchLetterContext.Provider value={ saveAllData }>
       { children }
     </FetchLetterContext.Provider>
 
   );
 }
+
+FirstLetter.propTypes = {
+  children: propTypes.element.isRequired,
+};
 
 export default FirstLetter;

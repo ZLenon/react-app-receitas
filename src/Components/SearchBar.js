@@ -6,9 +6,9 @@ import { FetchLetterContext } from '../Context/FirstLetter';
 // import PropTypes from 'prop-types';
 
 function SearchIcon() {
-  const { returnApii, fetchFoodApi } = useContext(FetchFoodContext);
-  const { resultsApi, fetchNamesApi } = useContext(FetchNameContext);
-  const { responseApi, firstLetterFetch } = useContext(FetchLetterContext);
+  const { fetchFoodApi } = useContext(FetchFoodContext);
+  const { fetchNamesApi } = useContext(FetchNameContext);
+  const { firstLetterFetch } = useContext(FetchLetterContext);
 
   const [isShow, setIsShow] = useState(false);
 
@@ -30,7 +30,7 @@ function SearchIcon() {
       break;
     case 'firstLetter':
       if (searchInput.length > 1) {
-        alert('Your search must have only 1 (one) character');
+        global.alert('Your search must have only 1 (one) character');
       }
       await firstLetterFetch(searchInput);
       break;
