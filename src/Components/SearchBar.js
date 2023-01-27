@@ -1,14 +1,13 @@
 import React, { useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import searchIcon from '../images/searchIcon.svg';
-import { FetchFoodContext } from '../Context/FetchFoodApi';
-import { FetchNameContext } from '../Context/FetchNameApi';
-import { FetchLetterContext } from '../Context/FirstLetter';
+import { FetchMealContext } from '../Context/FetchMeals';
 // import PropTypes from 'prop-types';
 
 function SearchIcon() {
-  const { fetchFoodApi } = useContext(FetchFoodContext);
-  const { fetchNamesApi } = useContext(FetchNameContext);
-  const { firstLetterFetch } = useContext(FetchLetterContext);
+  const { fetchIngredientFood, fetchDrinkApi } = useContext(FetchMealContext);
+
+  const history = useHistory();
 
   const [isShow, setIsShow] = useState(false);
 
@@ -21,20 +20,42 @@ function SearchIcon() {
   };
 
   const handleResults = async () => {
-    switch (allInput) {
-    case 'name':
-      await fetchNamesApi(searchInput);
-      break;
-    case 'ingredient':
-      await fetchFoodApi(searchInput);
-      break;
-    case 'firstLetter':
-      if (searchInput.length > 1) {
-        global.alert('Your search must have only 1 (one) character');
+    const location = history.location.pathname;
+    if (location === '/meals') {
+      switch (allInput) {
+      case 'name':
+        await fetchIngredientFood('s', 'search', searchInput);
+
+        break;
+      case 'ingredient':
+        await fetchIngredientFood('i', 'filter', searchInput);
+        break;
+      case 'firstLetter':
+        if (searchInput.length > 1) {
+          global.alert('Your search must have only 1 (one) character');
+        }
+        await fetchIngredientFood('f', 'search', searchInput);
+        break;
+      default: return null;
       }
-      await firstLetterFetch(searchInput);
-      break;
-    default: return null;
+    } else if
+    (location === '/drinks') {
+      switch (allInput) {
+      case 'name':
+        await fetchDrinkApi('s', 'search', searchInput);
+
+        break;
+      case 'ingredient':
+        await fetchDrinkApi('i', 'filter', searchInput);
+        break;
+      case 'firstLetter':
+        if (searchInput.length > 1) {
+          global.alert('Your search must have only 1 (one) character');
+        }
+        await fetchDrinkApi('f', 'search', searchInput);
+        break;
+      default: return null;
+      }
     }
   };
 
