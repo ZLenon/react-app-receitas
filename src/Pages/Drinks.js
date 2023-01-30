@@ -6,6 +6,7 @@ import ProfileIcon from '../Components/ProfileIcon';
 import Footer from '../Components/Footer';
 import Card from '../Components/Card';
 import { FetchRecipeContext } from '../Context/FetchRecipes';
+import Recipes from '../Components/Recipes';
 
 const num = 12;
 
@@ -19,23 +20,22 @@ function Drinks() {
         <SearchIcon />
         <h1 data-testid="page-title">Drinks</h1>
       </header>
-      <body>
-        <main>
-          <div>
-            { !drinkValue.drinks ? '' : drinkValue.drinks.map(
-              (item, index) => index < num && (
-                <Card
-                  index={ index }
-                  key={ item.idDrink }
-                  name={ item.strDrink }
-                  img={ item.strDrinkThumb }
-                />
-              ),
-            ) }
+      <main>
+        <div>
+          { !drinkValue.drinks ? '' : drinkValue.drinks.map(
+            (item, index) => index < num && (
+              <Card
+                index={ index }
+                key={ item.idDrink }
+                name={ item.strDrink }
+                img={ item.strDrinkThumb }
+              />
+            ),
+          ) }
 
-          </div>
-        </main>
-      </body>
+        </div>
+      </main>
+      <Recipes />
       <Footer />
     </>
   );
