@@ -2,7 +2,7 @@ import { createContext, useMemo, useState } from 'react';
 import propTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 
-export const FetchMealContext = createContext();
+export const FetchRecipeContext = createContext();
 
 function FetchNameApi({ children }) {
   const [isLoading, setLoading] = useState(false);
@@ -19,10 +19,14 @@ function FetchNameApi({ children }) {
 
     const ingredientJson = await ingredientFood.json();
 
-    setLoading(false);
     setIngredient(ingredientJson);
 
-    if (ingredientJson.meals.length === 1) {
+    setLoading(false);
+
+    if (ingredientJson.meals === null) {
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    } else if
+    (ingredientJson.meals.length === 1) {
       history.push(`/meals/${ingredientJson.meals[0].idMeal}`);
     }
   };
@@ -31,17 +35,17 @@ function FetchNameApi({ children }) {
     setLoading(true);
 
     const url = `https://www.thecocktaildb.com/api/json/v1/1/${method}.php?${letter}=${ingredient}`;
-    console.log(letter);
 
     const drinkResults = await fetch(url);
 
     const drinkJson = await drinkResults.json();
 
+    setDrink(drinkJson);
     setLoading(false);
 
-    setDrink(drinkJson);
-
-    if
+    if (drinkJson.drinks === null) {
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    } else if
     (drinkJson.drinks.length === 1) {
       history.push(`/drinks/${drinkJson.drinks[0].idDrink}`);
     }
@@ -56,9 +60,9 @@ function FetchNameApi({ children }) {
   }), [isLoading, ingredientFoodValue, drinkValue]);
 
   return (
-    <FetchMealContext.Provider value={ saveAllData }>
+    <FetchRecipeContext.Provider value={ saveAllData }>
       { children }
-    </FetchMealContext.Provider>
+    </FetchRecipeContext.Provider>
 
   );
 }

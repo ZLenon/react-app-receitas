@@ -1,12 +1,12 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import searchIcon from '../images/searchIcon.svg';
-import { FetchMealContext } from '../Context/FetchMeals';
+import { FetchRecipeContext } from '../Context/FetchRecipes';
 // import PropTypes from 'prop-types';
 
 function SearchIcon() {
   const { fetchIngredientFood, fetchDrinkApi,
-    drinkValue, ingredientFoodValue } = useContext(FetchMealContext);
+    ingredientFoodValue } = useContext(FetchRecipeContext);
 
   const history = useHistory();
 
@@ -58,6 +58,8 @@ function SearchIcon() {
       default: return null;
       }
     }
+
+    console.log(ingredientFoodValue.meals);
   };
 
   return (
