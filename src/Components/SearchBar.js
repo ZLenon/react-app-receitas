@@ -5,7 +5,8 @@ import { FetchMealContext } from '../Context/FetchMeals';
 // import PropTypes from 'prop-types';
 
 function SearchIcon() {
-  const { fetchIngredientFood, fetchDrinkApi } = useContext(FetchMealContext);
+  const { fetchIngredientFood, fetchDrinkApi,
+    drinkValue, ingredientFoodValue } = useContext(FetchMealContext);
 
   const history = useHistory();
 
