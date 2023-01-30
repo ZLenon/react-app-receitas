@@ -1,19 +1,6 @@
-/* @media screen {
-  
-}
- */
-
-/* .allRecipes {
-  display: grid;
-  gap: 50px;
-  grid-template-columns: repeat(3, 200px);
-  grid-gap: 50px;
-} */
-
 .cardImg {
-  flex-wrap: wrap;
-  flex-direction: row;
   background: #eff3f9;
-  width: 150px;
+  flex-direction: row;
   height: 150px;
+  width: 150px;
 }
