@@ -6,6 +6,7 @@ import ProfileIcon from '../Components/ProfileIcon';
 import Footer from '../Components/Footer';
 import { FetchRecipeContext } from '../Context/FetchRecipes';
 import Card from '../Components/Card';
+import Recipes from '../Components/Recipes';
 
 const num = 12;
 
@@ -34,6 +35,7 @@ function Meals() {
 
         </div>
       </main>
+      <Recipes />
       <Footer />
     </>
   );
