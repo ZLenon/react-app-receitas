@@ -5,10 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Switch } from 'react-router-dom';
 import Meals from './Pages/Meals';
 import Drinks from './Pages/Drinks';
-import MealsIdRecipe from './Pages/MealsIdRecipe';
-import DrinksIdRecipe from './Pages/DrinksIdRecipe';
-import MealsIdRecipeProgress from './Pages/MealsIdRecipeProgress';
-import DrinksIdRecipeProgress from './Pages/DrinksIdRecipeProgress';
+import RecipeDetails from './Pages/RecipeDetails';
+import DrinkDetails from './Pages/DrinksDetails';
 import Profile from './Pages/Profile';
 import DoneRecipes from './Pages/DoneRecipes';
 import FavoriteRecipes from './Pages/FavoriteRecipes';
@@ -20,17 +18,17 @@ function App() {
       <Route exact path="/" component={ Login } />
       <Route exact path="/meals" component={ Meals } />
       <Route exact path="/drinks" component={ Drinks } />
-      <Route exact path="/meals/:id-da-receita" component={ MealsIdRecipe } />
-      <Route exact path="/drinks/:id-da-receita" component={ DrinksIdRecipe } />
+      <Route exact path="/meals/:id" component={ RecipeDetails } />
+      <Route exact path="/drinks/:id" component={ DrinkDetails } />
       <Route
         exact
         path="/meals/:id-da-receita/em-progreso"
-        component={ MealsIdRecipeProgress }
+        component={ RecipeDetails }
       />
       <Route
         exact
         path="/drinks/:id-da-receita/em-progreso"
-        component={ DrinksIdRecipeProgress }
+        component={ DrinkDetails }
       />
       <Route
         exact
