@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import '../css/Card.css';
 
 function Card({ name, img, index }) {
-  return (
+  return (/* data-testid="0-recipe-card" */
     <div data-testid={ `${index}-recipe-card` } className="allRecipes">
       <img
         src={ img }
