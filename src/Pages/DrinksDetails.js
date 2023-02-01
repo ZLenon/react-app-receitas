@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FetchRecipeContext } from '../Context/FetchRecipes';
+import RecipesDrinkCard from '../Components/RecipesDrinksCard';
 
 function DrinksIdRecipe({ match }) {
   const { fetchDrinkApi } = useContext(FetchRecipeContext);
@@ -13,7 +14,7 @@ function DrinksIdRecipe({ match }) {
     resolvePromese();
   }, []);
   return (
-    <h1>DrinksIdRecipe</h1>
+    <RecipesDrinkCard />
   );
 }
 

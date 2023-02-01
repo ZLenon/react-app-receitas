@@ -7,7 +7,11 @@ export const FetchRecipeContext = createContext();
 function FetchNameApi({ children }) {
   const [isLoading, setLoading] = useState(false);
   const [ingredientFoodValue, setIngredient] = useState([]);
+  const [filterIngredient, setFilterIngredient] = useState([]);
+  const [filterMeasure, setMeasure] = useState([]);
   const [drinkValue, setDrink] = useState([]);
+  const [filterDrink, setFilterDrink] = useState([]);
+  const [drinkMeasure, setDrinkMeasure] = useState({});
   const history = useHistory();
 
   const fetchIngredientFood = async (letter, method, ingredient) => {
@@ -18,6 +22,25 @@ function FetchNameApi({ children }) {
     const ingredientFood = await fetch(url);
 
     const ingredientJson = await ingredientFood.json();
+
+    const ingredientsFilter = Object.entries(ingredientJson.meals[0]);
+
+    const ingredientFoods = ingredientsFilter
+      .filter((ingredientFiltered) => ingredientFiltered[1] !== '')
+      .filter((ingredients) => ingredients[1] !== null)
+      .filter((ingredientes) => ingredientes[0].includes('strIngredient'));
+
+    const measureEntries = Object.entries(ingredientJson.meals[0]);
+
+    const filterMeasured = measureEntries
+      .filter((ingredientFiltered) => ingredientFiltered[1] !== ' ')
+      .filter((ingredientFiltered) => ingredientFiltered[1] !== '')
+      .filter((ingredients) => ingredients[1] !== null)
+      .filter((ingredientes) => ingredientes[0].includes('strMeasure'));
+
+    setMeasure(filterMeasured);
+
+    setFilterIngredient(ingredientFoods);
 
     setIngredient(ingredientJson);
 
@@ -40,6 +63,26 @@ function FetchNameApi({ children }) {
 
     const drinkJson = await drinkResults.json();
 
+    const drinksFilter = Object.entries(drinkJson.drinks[0]);
+
+    const ingredientDrinks = drinksFilter
+      .filter((ingredientFiltered) => ingredientFiltered[1] !== '')
+      .filter((ingredientFiltered) => ingredientFiltered[1] !== ' ')
+      .filter((ingredients) => ingredients[1] !== null)
+      .filter((ingredientes) => ingredientes[0].includes('strIngredient'));
+
+    const measureEntries = Object.entries(drinkJson.drinks[0]);
+
+    const drinkFilterMeasured = measureEntries
+      .filter((ingredientFiltered) => ingredientFiltered[1] !== ' ')
+      .filter((ingredientFiltered) => ingredientFiltered[1] !== '')
+      .filter((ingredients) => ingredients[1] !== null)
+      .filter((ingredientes) => ingredientes[0].includes('strMeasure'));
+
+    setDrinkMeasure(drinkFilterMeasured);
+
+    setFilterDrink(ingredientDrinks);
+
     setDrink(drinkJson);
     setLoading(false);
 
@@ -57,7 +100,12 @@ function FetchNameApi({ children }) {
     isLoading,
     ingredientFoodValue,
     drinkValue,
-  }), [isLoading, ingredientFoodValue, drinkValue]);
+    filterIngredient,
+    filterMeasure,
+    filterDrink,
+    drinkMeasure,
+  }), [isLoading, ingredientFoodValue, drinkValue, filterIngredient,
+    filterMeasure, filterDrink, drinkMeasure]);
 
   return (
     <FetchRecipeContext.Provider value={ saveAllData }>
