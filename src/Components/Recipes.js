@@ -1,7 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-
 import { useHistory } from 'react-router-dom';
-
 import { FetchRecipeContext } from '../Context/FetchRecipes';
 
 function Recipes() {
