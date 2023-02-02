@@ -97,6 +97,9 @@ function MealsIdRecipeProgress({ match }) {
               )}
             </div>
           </section>
+          <button type="button" data-testid="start-recipe-btn" className="btn-details">
+            Start Recipe
+          </button>
         </div>
       )}
     </div>

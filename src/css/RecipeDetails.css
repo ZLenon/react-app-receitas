@@ -12,3 +12,8 @@
 .scroll2 {
   display: inline-block;
 }
+
+.btn-details {
+  bottom: 0px;
+  position: fixed;
+}
