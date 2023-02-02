@@ -1,0 +1,14 @@
+.recomendImg {
+  height: 100px;
+  width: 180px;
+}
+
+.scroll {
+  overflow-x: scroll;
+  white-space: nowrap;
+}
+
+
+.scroll2 {
+  display: inline-block;
+}

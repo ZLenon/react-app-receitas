@@ -1,17 +1,25 @@
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FetchRecipeContext } from '../Context/FetchRecipes';
+import '../css/RecipeDetails.css';
+
+const num = 6;
 
 function MealsIdRecipeProgress({ match }) {
-  const { fetchIngredientFood, filterIngredient, ingredientFoodValue,
-    filterMeasure } = useContext(FetchRecipeContext);
+  const {
+    fetchIngredientFood,
+    fetchDrinkApi,
+    filterIngredient,
+    ingredientFoodValue,
+    filterMeasure,
+    drinkValue,
+  } = useContext(FetchRecipeContext);
   const idToBeFetched = match.params.id;
-
-  // const idToBeFetched = match.params.id;
 
   useEffect(() => {
     const resolvePromese = async () => {
       await fetchIngredientFood('i', 'lookup', idToBeFetched);
+      await fetchDrinkApi('s', 'search', '');
     };
 
     resolvePromese();
@@ -22,7 +30,6 @@ function MealsIdRecipeProgress({ match }) {
       {!ingredientFoodValue.meals ? (
         <p> Carregando... </p>
       ) : (
-
         <div>
           <header>
             <img
@@ -40,21 +47,17 @@ function MealsIdRecipeProgress({ match }) {
           </header>
           <section>
             <h1> Ingredients: </h1>
-            {
-              filterIngredient.map((eachIngredient, index) => (
-                <ul key={ index }>
-                  <li
-                    data-testid={ `${index}-ingredient-name-and-measure` }
-                  >
-                    { `${eachIngredient[1]} : ${(filterMeasure[index])[1]}` }
-                  </li>
-                </ul>
-              ))
-            }
+            {filterIngredient.map((eachIngredient, index) => (
+              <ul key={ index }>
+                <li data-testid={ `${index}-ingredient-name-and-measure` }>
+                  {`${eachIngredient[1]} : ${filterMeasure[index][1]}`}
+                </li>
+              </ul>
+            ))}
 
             <h1> Instructions </h1>
             <p data-testid="instructions">
-              { ingredientFoodValue.meals[0].strInstructions }
+              {ingredientFoodValue.meals[0].strInstructions}
             </p>
             <div>
               <video
@@ -63,7 +66,6 @@ function MealsIdRecipeProgress({ match }) {
                 height="140"
                 controls
                 autoPlay
-                preload
               >
                 <source
                   src={ ingredientFoodValue.meals[0].strYoutube }
@@ -73,7 +75,27 @@ function MealsIdRecipeProgress({ match }) {
                 Your browser does not support the video tag.
               </video>
             </div>
-
+          </section>
+          <section>
+            <div className="scroll">
+              {!drinkValue.drinks ? (
+                ''
+              ) : (
+                drinkValue.drinks.slice(0, num).map((drink, index) => (
+                  <div key={ index } className="scroll2">
+                    <img
+                      src={ drink.strDrinkThumb }
+                      alt={ index }
+                      className="recomendImg"
+                      data-testid={ `${index}-recommendation-card` }
+                    />
+                    <p data-testid={ `${index}-recommendation-title` }>
+                      { drink.strDrink }
+                    </p>
+                  </div>
+                ))
+              )}
+            </div>
           </section>
         </div>
       )}

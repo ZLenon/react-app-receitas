@@ -59,7 +59,6 @@ function FetchNameApi({ children }) {
 
     const url = `https://www.thecocktaildb.com/api/json/v1/1/${method}.php?${letter}=${ingredient}`;
 
-    console.log(url);
     const drinkResults = await fetch(url);
 
     const drinkJson = await drinkResults.json();

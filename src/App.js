@@ -15,18 +15,18 @@ import Login from './Pages/Login';
 function App() {
   return (
     <Switch>
-      <Route exact path="/meals/:id-da-receita" component={ RecipeDetails } />
-      <Route exact path="/drinks/:id-da-receita" component={ DrinkDetails } />
-      <Route
+      <Route exact path="/meals/:id" component={ RecipeDetails } />
+      <Route exact path="/drinks/:id" component={ DrinkDetails } />
+      {/* <Route
         exact
         path="/meals/:id-da-receita/em-progreso"
-        component={ RecipeDetails }
+        component={ RecipeInProgress }
       />
       <Route
         exact
         path="/drinks/:id-da-receita/em-progreso"
-        component={ DrinkDetails }
-      />
+        component={ DrinkInProgress }
+      /> */}
       <Route
         exact
         path="/profile"
