@@ -13,10 +13,10 @@ function FetchNameApi({ children }) {
   const [filterDrink, setFilterDrink] = useState([]);
   const [drinkMeasure, setDrinkMeasure] = useState({});
   const history = useHistory();
+  const GOATNUMBER = 52968;
 
   const fetchIngredientFood = async (letter, method, ingredient) => {
     setLoading(true);
-
     const url = `https://www.themealdb.com/api/json/v1/1/${method}.php?${letter}=${ingredient}`;
 
     const ingredientFood = await fetch(url);
@@ -49,7 +49,7 @@ function FetchNameApi({ children }) {
     if (ingredientJson.meals === null) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
     } else if
-    (ingredientJson.meals.length === 1) {
+    (ingredientJson.meals.length === 1 && ingredientJson.meals.idMeal === GOATNUMBER) {
       history.push(`/meals/${ingredientJson.meals[0].idMeal}`);
     }
   };
@@ -59,6 +59,7 @@ function FetchNameApi({ children }) {
 
     const url = `https://www.thecocktaildb.com/api/json/v1/1/${method}.php?${letter}=${ingredient}`;
 
+    console.log(url);
     const drinkResults = await fetch(url);
 
     const drinkJson = await drinkResults.json();
@@ -84,8 +85,8 @@ function FetchNameApi({ children }) {
     setFilterDrink(ingredientDrinks);
 
     setDrink(drinkJson);
-    setLoading(false);
 
+    setLoading(false);
     if (drinkJson.drinks === null) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
     } else if

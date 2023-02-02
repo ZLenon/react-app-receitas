@@ -15,11 +15,8 @@ import Login from './Pages/Login';
 function App() {
   return (
     <Switch>
-      <Route exact path="/" component={ Login } />
-      <Route exact path="/meals" component={ Meals } />
-      <Route exact path="/drinks" component={ Drinks } />
-      <Route exact path="/meals/:id" component={ RecipeDetails } />
-      <Route exact path="/drinks/:id" component={ DrinkDetails } />
+      <Route exact path="/meals/:id-da-receita" component={ MealsIdRecipe } />
+      <Route exact path="/drinks/:id-da-receita" component={ DrinksIdRecipe } />
       <Route
         exact
         path="/meals/:id-da-receita/em-progreso"
@@ -45,6 +42,9 @@ function App() {
         path="/favorite-recipes"
         component={ FavoriteRecipes }
       />
+      <Route exact path="/meals" component={ Meals } />
+      <Route exact path="/drinks" component={ Drinks } />
+      <Route exact path="/" component={ Login } />
     </Switch>
   );
 }
