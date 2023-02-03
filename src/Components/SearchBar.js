@@ -24,36 +24,28 @@ function SearchIcon() {
     if (location === '/meals') {
       switch (allInput) {
       case 'name':
-        await fetchIngredientFood('s', 'search', searchInput);
-
-        break;
+        return fetchIngredientFood('s', 'search', searchInput);
       case 'ingredient':
-        await fetchIngredientFood('i', 'filter', searchInput);
-        break;
+        return fetchIngredientFood('i', 'filter', searchInput);
       case 'firstLetter':
         if (searchInput.length > 1) {
           global.alert('Your search must have only 1 (one) character');
         }
-        await fetchIngredientFood('f', 'search', searchInput);
-        break;
+        return fetchIngredientFood('f', 'search', searchInput);
       default: return null;
       }
     } else if
     (location === '/drinks') {
       switch (allInput) {
       case 'name':
-        await fetchDrinkApi('s', 'search', searchInput);
-
-        break;
+        return fetchDrinkApi('s', 'search', searchInput);
       case 'ingredient':
-        await fetchDrinkApi('i', 'filter', searchInput);
-        break;
+        return fetchDrinkApi('i', 'filter', searchInput);
       case 'firstLetter':
         if (searchInput.length > 1) {
           global.alert('Your search must have only 1 (one) character');
         }
-        await fetchDrinkApi('f', 'search', searchInput);
-        break;
+        return fetchDrinkApi('f', 'search', searchInput);
       default: return null;
       }
     }
