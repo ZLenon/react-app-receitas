@@ -15,8 +15,17 @@ function DrinksIdRecipe({ match }) {
       await fetchDrinkApi('i', 'lookup', idToBeFetched);
       await fetchIngredientFood('s', 'search', '');
     };
+    const recipes = {
+      id: 52968,
+    };
+
+    localStorage.setItem('DoneRecipes', JSON.stringify(recipes));
     resolvePromese();
   }, []);
+  const storage = JSON.parse(localStorage.getItem('DoneRecipes'));
+
+  const storageString = JSON.stringify(storage.id);
+
   return (
     <div>
       {!drinkValue.drinks ? (
@@ -77,7 +86,12 @@ function DrinksIdRecipe({ match }) {
               )}
             </div>
           </section>
-          <button type="button" data-testid="start-recipe-btn" className="btn-details">
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            className={ idToBeFetched === storageString
+              ? 'btn-details' : 'hidden' }
+          >
             Start Recipe
           </button>
         </div>

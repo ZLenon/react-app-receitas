@@ -21,9 +21,18 @@ function MealsIdRecipeProgress({ match }) {
       await fetchIngredientFood('i', 'lookup', idToBeFetched);
       await fetchDrinkApi('s', 'search', '');
     };
+    const recipes = {
+      id: 52968,
+    };
+
+    localStorage.setItem('DoneRecipes', JSON.stringify(recipes));
 
     resolvePromese();
   }, []);
+
+  const storage = JSON.parse(localStorage.getItem('DoneRecipes'));
+
+  const storageString = JSON.stringify(storage.id);
 
   return (
     <div>
@@ -78,10 +87,9 @@ function MealsIdRecipeProgress({ match }) {
           </section>
           <section>
             <div className="scroll">
-              {!drinkValue.drinks ? (
-                ''
-              ) : (
-                drinkValue.drinks.slice(0, num).map((drink, index) => (
+              {!drinkValue.drinks
+                ? ''
+                : drinkValue.drinks.slice(0, num).map((drink, index) => (
                   <div key={ index } className="scroll2">
                     <img
                       src={ drink.strDrinkThumb }
@@ -90,16 +98,21 @@ function MealsIdRecipeProgress({ match }) {
                       data-testid={ `${index}-recommendation-card` }
                     />
                     <p data-testid={ `${index}-recommendation-title` }>
-                      { drink.strDrink }
+                      {drink.strDrink}
                     </p>
                   </div>
-                ))
-              )}
+                ))}
             </div>
           </section>
-          <button type="button" data-testid="start-recipe-btn" className="btn-details">
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            className={ idToBeFetched === storageString
+              ? 'btn-details' : 'hidden' }
+          >
             Start Recipe
           </button>
+
         </div>
       )}
     </div>
