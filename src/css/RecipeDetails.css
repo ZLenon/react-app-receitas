@@ -8,16 +8,28 @@
   white-space: nowrap;
 }
 
-
 .scroll2 {
   display: inline-block;
 }
 
 .btn-details {
-  bottom: 0px;
+  bottom: 0;
   position: fixed;
 }
 
 .hidden {
+  bottom: 0;
   display: none;
+  position: fixed;
 }
+
+.detailsImg {
+  height: 161.85px;
+  left: -2px;
+  top: 0;
+  width: 362.01px;
+}
+
+/* .btn-share {
+  width: 150px;
+} */

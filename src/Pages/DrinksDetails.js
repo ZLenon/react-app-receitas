@@ -1,30 +1,107 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import { FetchRecipeContext } from '../Context/FetchRecipes';
 import '../css/RecipeDetails.css';
+import share from '../images/shareIcon.svg';
+import favoriteImg from '../images/blackHeartIcon.svg';
+import notFavoriteImg from '../images/whiteHeartIcon.svg';
 
 const num = 6;
+const num2 = -1;
 
 function DrinksIdRecipe({ match }) {
   const { fetchDrinkApi, fetchIngredientFood, filterDrink,
     drinkValue, drinkMeasure, ingredientFoodValue } = useContext(FetchRecipeContext);
+  const [copySuccess, setCopySuccess] = useState('');
+  const [isFavorite, setFavorite] = useState(false);
   const idToBeFetched = match.params.id;
+  const history = useHistory();
 
   useEffect(() => {
     const resolvePromese = async () => {
       await fetchDrinkApi('i', 'lookup', idToBeFetched);
       await fetchIngredientFood('s', 'search', '');
     };
-    const recipes = {
-      id: 52968,
-    };
 
-    localStorage.setItem('DoneRecipes', JSON.stringify(recipes));
     resolvePromese();
+    const storageFavorites = localStorage.getItem('favoriteRecipes') || [];
+
+    if (storageFavorites.includes(idToBeFetched)) {
+      setFavorite(true);
+    }
   }, []);
+
+  const recipes = {
+    id: 178319,
+  };
+
+  const obj = {
+    drinks: {
+      17203: [1, 2],
+    },
+    meals: {
+      52977: [1, 2],
+    },
+  };
+
+  localStorage.setItem('DoneRecipes', JSON.stringify(recipes));
+  localStorage.setItem('inProgressRecipes', JSON.stringify(obj));
+
   const storage = JSON.parse(localStorage.getItem('DoneRecipes'));
 
   const storageString = JSON.stringify(storage.id);
+
+  const storage2 = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+  const storageString2 = Object.keys(storage2.drinks)[0];
+
+  const handleClick = (e) => {
+    if (e.target.innerText === 'Start Recipe') {
+      history.push(`drinks/${idToBeFetched}/in-progress`);
+    }
+  };
+
+  const handleShareBtn = () => {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      setCopySuccess('Link copiado!');
+    }, () => {
+      setCopySuccess('Erro ao copiar link');
+    });
+  };
+
+  const handleFavoritBtn = () => {
+    setFavorite(!isFavorite);
+    const drinksToFavorite = drinkValue.drinks[0];
+
+    const drinkObj = {
+      id: drinksToFavorite.idDrink,
+      type: 'drink',
+      nationality: '',
+      category: drinksToFavorite.strCategory,
+      alcoholicOrNot: drinksToFavorite.strAlcoholic,
+      name: drinksToFavorite.strDrink,
+      image: drinksToFavorite.strDrinkThumb,
+    };
+
+    let favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+
+    if (!Array.isArray(favoriteRecipes)) {
+      favoriteRecipes = [];
+    }
+
+    const isMealInFavorites = favoriteRecipes
+      .findIndex((favoriteMeal) => favoriteMeal.id === drinkObj.id) !== num2;
+
+    if (isMealInFavorites) {
+      favoriteRecipes = favoriteRecipes
+        .filter((favoriteMeal) => favoriteMeal.id !== drinkObj.id);
+    } else {
+      favoriteRecipes.push(drinkObj);
+    }
+
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+  };
 
   return (
     <div>
@@ -33,10 +110,30 @@ function DrinksIdRecipe({ match }) {
       ) : (
         <div>
           <header>
+            <button
+              type="button"
+              data-testid="share-btn"
+              onClick={ handleShareBtn }
+              src={ share }
+            >
+              <img src={ share } alt="shareImg" />
+            </button>
+            <button
+              type="button"
+              data-testid="favorite-btn"
+              onClick={ handleFavoritBtn }
+              src={ isFavorite ? favoriteImg : notFavoriteImg }
+            >
+              <img src={ isFavorite ? favoriteImg : notFavoriteImg } alt="FavoriteImg" />
+            </button>
+            {
+              !copySuccess ? '' : <p>Link copied!</p>
+            }
             <img
               src={ drinkValue.drinks.map((drink) => drink.strDrinkThumb) }
               alt="recipe img"
               data-testid="recipe-photo"
+              className="detailsImg"
             />
 
             <h1 data-testid="recipe-title">
@@ -90,9 +187,13 @@ function DrinksIdRecipe({ match }) {
             type="button"
             data-testid="start-recipe-btn"
             className={ idToBeFetched === storageString
-              ? 'btn-details' : 'hidden' }
+              ? 'hidden' : 'btn-details' }
+            // className="btn-details"
+            onClick={ handleClick }
           >
-            Start Recipe
+            {
+              idToBeFetched === storageString2 ? 'Start Recipe' : 'Continue Recipe'
+            }
           </button>
         </div>
 
