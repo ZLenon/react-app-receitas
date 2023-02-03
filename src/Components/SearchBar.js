@@ -5,8 +5,7 @@ import { FetchRecipeContext } from '../Context/FetchRecipes';
 // import PropTypes from 'prop-types';
 
 function SearchIcon() {
-  const { fetchIngredientFood, fetchDrinkApi,
-    ingredientFoodValue } = useContext(FetchRecipeContext);
+  const { fetchIngredientFood, fetchDrinkApi } = useContext(FetchRecipeContext);
 
   const history = useHistory();
 
@@ -58,8 +57,6 @@ function SearchIcon() {
       default: return null;
       }
     }
-
-    console.log(ingredientFoodValue.meals);
   };
 
   return (
