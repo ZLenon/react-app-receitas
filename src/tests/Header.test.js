@@ -3,15 +3,12 @@ import { screen, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { setTimeout } from 'timers/promises';
-// import { act } from 'react-dom/test-utils';
 import App from '../App';
 import FetchNameApi from '../Context/FetchRecipes';
-// import { mockFetch } from './helper';
 import '@testing-library/jest-dom';
 import renderWithRouter from './renderWithRouter';
 
 beforeEach(() => {
-  // mockFetch();
   renderWithRouter(
     <MemoryRouter>
       <FetchNameApi>
@@ -73,9 +70,6 @@ describe('Test the component SearchBar in Meals', () => {
 
 describe('Test if SearchBar works', () => {
   it('Test if ingredients radio has been correct', async () => {
-    // const mockFetch = jest.spyOn(global, 'fetch');
-    // global.fetch = jest.fn();
-    // mockFetch();
     const searchIcon = screen.getByTestId(searchTopBtn);
     userEvent.click(searchIcon);
 
@@ -88,8 +82,6 @@ describe('Test if SearchBar works', () => {
       userEvent.click(ingredientRadio);
       userEvent.click(searchBtn);
     });
-    // expect(mockFetch).toHaveBeenCalled();
-    // delete global.fetch;
   });
 
   it('Test if name radio has been correct', () => {
@@ -124,27 +116,6 @@ describe('Test if SearchBar works', () => {
   });
 });
 
-// describe('Test if SearchBar works', () => {
-//   it('Test if dont find recipes an alert is called correct', async () => {
-//     const alertMessage = jest.spyOn(global, 'alert');
-//     const searchIcon = screen.getByTestId(searchTopBtn);
-//     userEvent.click(searchIcon);
-
-//     const firstLRadio = screen.getByTestId(firstLetter);
-//     const searchInput = screen.getByTestId(searchInputConst);
-//     const searchBtn = screen.getByTestId(searchBtnExec);
-
-//     await act(async () => {
-//       userEvent.type(searchInput, 'x');
-//       userEvent.click(firstLRadio);
-//       userEvent.click(searchBtn);
-//     });
-
-//     expect(alertMessage).toBeCalled();
-//     // expect(mockFetch).toBeCalledWith('https://www.themealdb.com/api/json/v1/1/filter.php?i=u');
-//   });
-// });
-
 describe('Test if component SearchBar works correctly in Drinks', () => {
   beforeEach(() => {
     const drinks = screen.getByRole('img', { name: /drinkicon/i });
@@ -163,7 +134,6 @@ describe('Test if component SearchBar works correctly in Drinks', () => {
     userEvent.type(searchInput, 'vodka');
     userEvent.click(ingredientRadio);
     userEvent.click(searchBtn);
-    // expect(typeof fetchDrinkApi).toBe('undefined');
   });
 
   it('Test if name radio has been correct', () => {
