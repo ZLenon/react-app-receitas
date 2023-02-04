@@ -17,6 +17,7 @@ import DrinkInProgress from './Pages/DrinkInProgress';
 function App() {
   return (
     <Switch>
+
       <Route
         exact
         path="/meals/:id/in-progress"
@@ -29,6 +30,7 @@ function App() {
       />
       <Route exact path="/meals/:id" component={ RecipeDetails } />
       <Route exact path="/drinks/:id" component={ DrinkDetails } />
+
       <Route
         exact
         path="/profile"
