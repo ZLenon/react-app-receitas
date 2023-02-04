@@ -13,6 +13,7 @@ function FetchNameApi({ children }) {
   const [filterDrink, setFilterDrink] = useState([]);
   const [drinkMeasure, setDrinkMeasure] = useState({});
   const history = useHistory();
+  const [isChecked, setIsChecked] = useState({});
   const GOATNUMBER = 52968;
 
   const fetchIngredientFood = async (letter, method, ingredient) => {
@@ -104,8 +105,10 @@ function FetchNameApi({ children }) {
     filterMeasure,
     filterDrink,
     drinkMeasure,
+    setIsChecked,
+    isChecked,
   }), [isLoading, ingredientFoodValue, drinkValue, filterIngredient,
-    filterMeasure, filterDrink, drinkMeasure]);
+    filterMeasure, filterDrink, drinkMeasure, isChecked]);
 
   return (
     <FetchRecipeContext.Provider value={ saveAllData }>
