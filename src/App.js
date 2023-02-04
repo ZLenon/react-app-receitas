@@ -11,22 +11,24 @@ import Profile from './Pages/Profile';
 import DoneRecipes from './Pages/DoneRecipes';
 import FavoriteRecipes from './Pages/FavoriteRecipes';
 import Login from './Pages/Login';
+import RecipeInProgress from './Pages/RecipeInProgress';
+import DrinkInProgress from './Pages/DrinkInProgress';
 
 function App() {
   return (
     <Switch>
-      <Route exact path="/meals/:id-da-receita" component={ RecipeDetails } />
-      <Route exact path="/drinks/:id-da-receita" component={ DrinkDetails } />
       <Route
         exact
-        path="/meals/:id-da-receita/em-progreso"
-        component={ RecipeDetails }
+        path="/meals/:id/in-progress"
+        component={ RecipeInProgress }
       />
       <Route
         exact
-        path="/drinks/:id-da-receita/em-progreso"
-        component={ DrinkDetails }
+        path="/drinks/:id/in-progress"
+        component={ DrinkInProgress }
       />
+      <Route exact path="/meals/:id" component={ RecipeDetails } />
+      <Route exact path="/drinks/:id" component={ DrinkDetails } />
       <Route
         exact
         path="/profile"

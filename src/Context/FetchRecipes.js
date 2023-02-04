@@ -13,6 +13,7 @@ function FetchNameApi({ children }) {
   const [filterDrink, setFilterDrink] = useState([]);
   const [drinkMeasure, setDrinkMeasure] = useState({});
   const history = useHistory();
+  const [isChecked, setIsChecked] = useState({});
   const GOATNUMBER = 52968;
 
   const fetchIngredientFood = async (letter, method, ingredient) => {
@@ -59,7 +60,6 @@ function FetchNameApi({ children }) {
 
     const url = `https://www.thecocktaildb.com/api/json/v1/1/${method}.php?${letter}=${ingredient}`;
 
-    console.log(url);
     const drinkResults = await fetch(url);
 
     const drinkJson = await drinkResults.json();
@@ -105,8 +105,10 @@ function FetchNameApi({ children }) {
     filterMeasure,
     filterDrink,
     drinkMeasure,
+    setIsChecked,
+    isChecked,
   }), [isLoading, ingredientFoodValue, drinkValue, filterIngredient,
-    filterMeasure, filterDrink, drinkMeasure]);
+    filterMeasure, filterDrink, drinkMeasure, isChecked]);
 
   return (
     <FetchRecipeContext.Provider value={ saveAllData }>
