@@ -33,6 +33,7 @@ function FavoriteRecipes() {
       <header>
         <Header title="Favorite Recipes" profile />
         <ProfileIcon />
+        <h1 data-testid="page-title">Favorite Recipes</h1>
       </header>
 
       <main>

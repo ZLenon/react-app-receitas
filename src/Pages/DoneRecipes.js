@@ -18,9 +18,10 @@ function DoneRecipes() {
 
   return (
     <div>
-      <header>
-        <Header title="Done Recipes" profile />
+      <header title="Done Recipes" profile>
+        <Header />
         <ProfileIcon />
+        <h1 data-testid="page-title">Done Recipes</h1>
       </header>
 
       <main>

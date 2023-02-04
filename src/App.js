@@ -17,7 +17,6 @@ import DrinkInProgress from './Pages/DrinkInProgress';
 function App() {
   return (
     <Switch>
-
       <Route
         exact
         path="/meals/:id/in-progress"
