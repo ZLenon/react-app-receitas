@@ -64,7 +64,7 @@ function MealsIdRecipeProgress({ match }) {
 
   const handleClick = (e) => {
     if (e.target.innerText === 'Start Recipe') {
-      history.push('meals//in-progress');
+      history.push(`${idToBeFetched}/in-progress`);
     }
   };
 
@@ -167,8 +167,8 @@ function MealsIdRecipeProgress({ match }) {
             <div>
               <video
                 data-testid="video"
-                width="140"
-                height="140"
+                width="360"
+                height="330"
                 controls
                 autoPlay
               >
@@ -207,7 +207,7 @@ function MealsIdRecipeProgress({ match }) {
             onClick={ handleClick }
           >
             {
-              idToBeFetched === storageString2 ? 'Start Recipe' : 'Continue Recipe'
+              idToBeFetched !== storageString2 ? 'Start Recipe' : 'Continue Recipe'
             }
           </button>
         </div>

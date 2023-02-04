@@ -58,7 +58,7 @@ function DrinksIdRecipe({ match }) {
 
   const handleClick = (e) => {
     if (e.target.innerText === 'Start Recipe') {
-      history.push(`drinks/${idToBeFetched}/in-progress`);
+      history.push(`${idToBeFetched}/in-progress`);
     }
   };
 
@@ -151,7 +151,7 @@ function DrinksIdRecipe({ match }) {
                   <li
                     data-testid={ `${index}-ingredient-name-and-measure` }
                   >
-                    { `${eachIngredient[1]} : ${(drinkMeasure[index])[1]}` }
+                    { `${eachIngredient[1]} : ${drinkMeasure[index][1]}` }
                   </li>
                 </ul>
               ))
@@ -192,7 +192,7 @@ function DrinksIdRecipe({ match }) {
             onClick={ handleClick }
           >
             {
-              idToBeFetched === storageString2 ? 'Start Recipe' : 'Continue Recipe'
+              idToBeFetched !== storageString2 ? 'Start Recipe' : 'Continue Recipe'
             }
           </button>
         </div>
