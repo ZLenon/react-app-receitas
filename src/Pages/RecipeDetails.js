@@ -7,8 +7,8 @@ import share from '../images/shareIcon.svg';
 import favoriteImg from '../images/blackHeartIcon.svg';
 import notFavoriteImg from '../images/whiteHeartIcon.svg';
 
-const num = 6;
-const num2 = -1;
+const SIX = 6;
+const NEGATIVEONE = -1;
 
 function MealsIdRecipeProgress({ match }) {
   const {
@@ -39,7 +39,7 @@ function MealsIdRecipeProgress({ match }) {
   }, []);
 
   const recipes = {
-    id: 523977,
+    id: [idToBeFetched],
   };
 
   const obj = {
@@ -98,7 +98,7 @@ function MealsIdRecipeProgress({ match }) {
     }
 
     const isMealInFavorites = favoriteRecipes
-      .findIndex((favoriteMeal) => favoriteMeal.id === mealObj.id) !== num2;
+      .findIndex((favoriteMeal) => favoriteMeal.id === mealObj.id) !== NEGATIVEONE;
 
     if (isMealInFavorites) {
       favoriteRecipes = favoriteRecipes
@@ -155,7 +155,8 @@ function MealsIdRecipeProgress({ match }) {
             {filterIngredient.map((eachIngredient, index) => (
               <ul key={ index }>
                 <li data-testid={ `${index}-ingredient-name-and-measure` }>
-                  {`${eachIngredient[1]} : ${filterMeasure[index][1]}`}
+                  {`${eachIngredient[1]} : ${filterMeasure[index]
+                    ? (filterMeasure[index][1]) : ''}`}
                 </li>
               </ul>
             ))}
@@ -185,7 +186,7 @@ function MealsIdRecipeProgress({ match }) {
             <div className="scroll">
               {!drinkValue.drinks
                 ? ''
-                : drinkValue.drinks.slice(0, num).map((drink, index) => (
+                : drinkValue.drinks.slice(0, SIX).map((drink, index) => (
                   <div key={ index } className="scroll2">
                     <img
                       src={ drink.strDrinkThumb }
