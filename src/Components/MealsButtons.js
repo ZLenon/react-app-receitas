@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { FetchRecipeContext } from '../Context/FetchRecipes';
 
 function MealsButtons() {
@@ -6,6 +7,7 @@ function MealsButtons() {
   const { fetchIngredientFood } = useContext(FetchRecipeContext);
   const [isClick, setClick] = useState(0);
   const LIMIT = 1;
+  const history = useHistory();
 
   const AllCategory = async () => {
     await fetchIngredientFood('s', 'search', '');
@@ -21,13 +23,17 @@ function MealsButtons() {
     await fetchIngredientFood('c', 'filter', 'Beef');
   };
   const GoatCategory = async () => {
-    setClick(isClick + 1);
-    if (isClick === LIMIT) {
-      await fetchIngredientFood('s', 'search', '');
-      setClick(0);
-      return;
-    }
+    // setClick(isClick + 1);
+    // if (isClick === LIMIT) {
+    //   await fetchIngredientFood('s', 'search', '');
+    //   setClick(0);
+    //   return;
+    // }
+
+    console.log(GoatCategory);
     await fetchIngredientFood('c', 'filter', 'Goat');
+
+    history.push('/meals/52968');
   };
   const ChickenCategory = async () => {
     setClick(isClick + 1);

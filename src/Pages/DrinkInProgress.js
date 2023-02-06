@@ -64,7 +64,7 @@ function DrinkInProgress({ match }) {
             </p>
 
             <img
-              src={ drinkValue.drinks.map((meal) => meal.strDrinksThumb) }
+              src={ drinkValue.drinks.map((meal) => meal.strDrinkThumb) }
               alt="recipe img"
               data-testid="recipe-photo"
               width="360"
@@ -80,7 +80,7 @@ function DrinkInProgress({ match }) {
           <section>
             <h1> Ingredients: </h1>
             {
-              drinkValue.map((eachIngredient, index) => (
+              filterDrink.map((eachIngredient, index) => (
                 <label
                   key={ index }
                   htmlFor="ingredient"

@@ -18,6 +18,8 @@ function DrinksIdRecipe({ match }) {
   const idToBeFetched = match.params.id;
   const history = useHistory();
 
+  console.log(drinkMeasure);
+
   useEffect(() => {
     const resolvePromese = async () => {
       await fetchDrinkApi('i', 'lookup', idToBeFetched);
@@ -57,8 +59,8 @@ function DrinksIdRecipe({ match }) {
   const storageString2 = Object.keys(storage2.drinks)[0];
 
   const handleClick = (e) => {
-    if (e.target.innerText === 'Start Recipe') {
-      history.push(`drinks/${idToBeFetched}/in-progress`);
+    if (e.target.innerText === 'Continue Recipe') {
+      history.push(`${idToBeFetched}/in-progress`);
     }
   };
 
@@ -151,7 +153,8 @@ function DrinksIdRecipe({ match }) {
                   <li
                     data-testid={ `${index}-ingredient-name-and-measure` }
                   >
-                    { `${eachIngredient[1]} : ${(drinkMeasure[index])[1]}` }
+                    { `${eachIngredient[1]} : ${drinkMeasure[index]
+                      ? drinkMeasure[index][1] : ''}` }
                   </li>
                 </ul>
               ))
@@ -186,13 +189,13 @@ function DrinksIdRecipe({ match }) {
           <button
             type="button"
             data-testid="start-recipe-btn"
-            className={ idToBeFetched === storageString
+            className={ idToBeFetched !== storageString
               ? 'hidden' : 'btn-details' }
             // className="btn-details"
             onClick={ handleClick }
           >
             {
-              idToBeFetched === storageString2 ? 'Start Recipe' : 'Continue Recipe'
+              idToBeFetched !== storageString2 ? 'Continue Recipe' : 'Start Recipe'
             }
           </button>
         </div>

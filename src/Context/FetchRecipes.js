@@ -15,6 +15,7 @@ function FetchNameApi({ children }) {
   const history = useHistory();
   const [isChecked, setIsChecked] = useState({});
   const GOATNUMBER = 52968;
+  const drinkNum = 178319;
 
   const fetchIngredientFood = async (letter, method, ingredient) => {
     setLoading(true);
@@ -24,35 +25,36 @@ function FetchNameApi({ children }) {
 
     const ingredientJson = await ingredientFood.json();
 
-    const ingredientsFilter = Object.entries(ingredientJson.meals[0]);
-
-    const ingredientFoods = ingredientsFilter
-      .filter((ingredientFiltered) => ingredientFiltered[1] !== '')
-      .filter((ingredients) => ingredients[1] !== null)
-      .filter((ingredientes) => ingredientes[0].includes('strIngredient'));
-
-    const measureEntries = Object.entries(ingredientJson.meals[0]);
-
-    const filterMeasured = measureEntries
-      .filter((ingredientFiltered) => ingredientFiltered[1] !== ' ')
-      .filter((ingredientFiltered) => ingredientFiltered[1] !== '')
-      .filter((ingredients) => ingredients[1] !== null)
-      .filter((ingredientes) => ingredientes[0].includes('strMeasure'));
-
-    setMeasure(filterMeasured);
-
-    setFilterIngredient(ingredientFoods);
-
-    setIngredient(ingredientJson);
-
-    setLoading(false);
+    console.log(ingredientJson);
 
     if (ingredientJson.meals === null) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
     } else if
     (ingredientJson.meals.length === 1 && ingredientJson.meals.idMeal === GOATNUMBER) {
       history.push(`/meals/${ingredientJson.meals[0].idMeal}`);
+    } else {
+      const ingredientsFilter = Object.entries(ingredientJson.meals[0]);
+
+      const ingredientFoods = ingredientsFilter
+        .filter((ingredientFiltered) => ingredientFiltered[1] !== '')
+        .filter((ingredients) => ingredients[1] !== null)
+        .filter((ingredientes) => ingredientes[0].includes('strIngredient'));
+
+      const measureEntries = Object.entries(ingredientJson.meals[0]);
+
+      const filterMeasured = measureEntries
+        .filter((ingredientFiltered) => ingredientFiltered[1] !== ' ')
+        .filter((ingredientFiltered) => ingredientFiltered[1] !== '')
+        .filter((ingredients) => ingredients[1] !== null)
+        .filter((ingredientes) => ingredientes[0].includes('strMeasure'));
+
+      setMeasure(filterMeasured);
+
+      setFilterIngredient(ingredientFoods);
     }
+    setIngredient(ingredientJson);
+
+    setLoading(false);
   };
 
   const fetchDrinkApi = async (letter, method, ingredient) => {
@@ -64,35 +66,37 @@ function FetchNameApi({ children }) {
 
     const drinkJson = await drinkResults.json();
 
-    const drinksFilter = Object.entries(drinkJson.drinks[0]);
+    console.log(drinkJson);
 
-    const ingredientDrinks = drinksFilter
-      .filter((ingredientFiltered) => ingredientFiltered[1] !== '')
-      .filter((ingredientFiltered) => ingredientFiltered[1] !== ' ')
-      .filter((ingredients) => ingredients[1] !== null)
-      .filter((ingredientes) => ingredientes[0].includes('strIngredient'));
-
-    const measureEntries = Object.entries(drinkJson.drinks[0]);
-
-    const drinkFilterMeasured = measureEntries
-      .filter((ingredientFiltered) => ingredientFiltered[1] !== ' ')
-      .filter((ingredientFiltered) => ingredientFiltered[1] !== '')
-      .filter((ingredients) => ingredients[1] !== null)
-      .filter((ingredientes) => ingredientes[0].includes('strMeasure'));
-
-    setDrinkMeasure(drinkFilterMeasured);
-
-    setFilterDrink(ingredientDrinks);
-
-    setDrink(drinkJson);
-
-    setLoading(false);
     if (drinkJson.drinks === null) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
     } else if
-    (drinkJson.drinks.length === 1) {
+    (drinkJson.drinks.length === 1 && drinkJson.drinks.idDrink === drinkNum) {
       history.push(`/drinks/${drinkJson.drinks[0].idDrink}`);
+    } else {
+      const drinksFilter = Object.entries(drinkJson.drinks[0]);
+
+      const ingredientDrinks = drinksFilter
+        .filter((ingredientFiltered) => ingredientFiltered[1] !== '')
+        .filter((ingredientFiltered) => ingredientFiltered[1] !== ' ')
+        .filter((ingredients) => ingredients[1] !== null)
+        .filter((ingredientes) => ingredientes[0].includes('strIngredient'));
+
+      const measureEntries = Object.entries(drinkJson.drinks[0]);
+
+      const drinkFilterMeasured = measureEntries
+        .filter((ingredientFiltered) => ingredientFiltered[1] !== ' ')
+        .filter((ingredientFiltered) => ingredientFiltered[1] !== '')
+        .filter((ingredients) => ingredients[1] !== null)
+        .filter((ingredientes) => ingredientes[0].includes('strMeasure'));
+
+      setDrinkMeasure(drinkFilterMeasured);
+
+      setFilterDrink(ingredientDrinks);
     }
+
+    setDrink(drinkJson);
+    setLoading(false);
   };
 
   const saveAllData = useMemo(() => ({
