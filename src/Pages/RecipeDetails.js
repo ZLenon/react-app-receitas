@@ -63,7 +63,7 @@ function MealsIdRecipeProgress({ match }) {
   const storageString = JSON.stringify(storage.id);
 
   const handleClick = (e) => {
-    if (e.target.innerText === 'Start Recipe') {
+    if (e.target.innerText === 'Continue Recipe') {
       history.push(`${idToBeFetched}/in-progress`);
     }
   };
@@ -208,7 +208,7 @@ function MealsIdRecipeProgress({ match }) {
             onClick={ handleClick }
           >
             {
-              idToBeFetched !== storageString2 ? 'Start Recipe' : 'Continue Recipe'
+              idToBeFetched !== storageString2 ? 'Continue Recipe' : 'Start Recipe'
             }
           </button>
         </div>

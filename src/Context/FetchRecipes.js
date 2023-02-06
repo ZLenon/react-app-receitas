@@ -16,12 +16,13 @@ function FetchNameApi({ children }) {
   const [isChecked, setIsChecked] = useState({});
   const GOATNUMBER = 52968;
   const drinkNum = 178319;
+
   const fetchIngredientFood = async (letter, method, ingredient) => {
     setLoading(true);
     const url = `https://www.themealdb.com/api/json/v1/1/${method}.php?${letter}=${ingredient}`;
     const ingredientFood = await fetch(url);
     const ingredientJson = await ingredientFood.json();
-    console.log(ingredientJson);
+
     if (ingredientJson.meals === null) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
     } else if
@@ -29,16 +30,20 @@ function FetchNameApi({ children }) {
       history.push(`/meals/${ingredientJson.meals[0].idMeal}`);
     } else {
       const ingredientsFilter = Object.entries(ingredientJson.meals[0]);
+
       const ingredientFoods = ingredientsFilter
         .filter((ingredientFiltered) => ingredientFiltered[1] !== '')
         .filter((ingredients) => ingredients[1] !== null)
         .filter((ingredientes) => ingredientes[0].includes('strIngredient'));
+
       const measureEntries = Object.entries(ingredientJson.meals[0]);
+
       const filterMeasured = measureEntries
         .filter((ingredientFiltered) => ingredientFiltered[1] !== ' ')
         .filter((ingredientFiltered) => ingredientFiltered[1] !== '')
         .filter((ingredients) => ingredients[1] !== null)
         .filter((ingredientes) => ingredientes[0].includes('strMeasure'));
+
       setMeasure(filterMeasured);
       setFilterIngredient(ingredientFoods);
     }
@@ -50,7 +55,7 @@ function FetchNameApi({ children }) {
     const url = `https://www.thecocktaildb.com/api/json/v1/1/${method}.php?${letter}=${ingredient}`;
     const drinkResults = await fetch(url);
     const drinkJson = await drinkResults.json();
-    console.log(drinkJson);
+
     if (drinkJson.drinks === null) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
     } else if
@@ -58,17 +63,20 @@ function FetchNameApi({ children }) {
       history.push(`/drinks/${drinkJson.drinks[0].idDrink}`);
     } else {
       const drinksFilter = Object.entries(drinkJson.drinks[0]);
+
       const ingredientDrinks = drinksFilter
         .filter((ingredientFiltered) => ingredientFiltered[1] !== '')
         .filter((ingredientFiltered) => ingredientFiltered[1] !== ' ')
         .filter((ingredients) => ingredients[1] !== null)
         .filter((ingredientes) => ingredientes[0].includes('strIngredient'));
+
       const measureEntries = Object.entries(drinkJson.drinks[0]);
       const drinkFilterMeasured = measureEntries
         .filter((ingredientFiltered) => ingredientFiltered[1] !== ' ')
         .filter((ingredientFiltered) => ingredientFiltered[1] !== '')
         .filter((ingredients) => ingredients[1] !== null)
         .filter((ingredientes) => ingredientes[0].includes('strMeasure'));
+
       setDrinkMeasure(drinkFilterMeasured);
       setFilterDrink(ingredientDrinks);
     }
