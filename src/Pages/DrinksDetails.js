@@ -7,8 +7,8 @@ import share from '../images/shareIcon.svg';
 import favoriteImg from '../images/blackHeartIcon.svg';
 import notFavoriteImg from '../images/whiteHeartIcon.svg';
 
-const num = 6;
-const num2 = -1;
+const SIX = 6;
+const NEGATIVEONE = -1;
 
 function DrinksIdRecipe({ match }) {
   const { fetchDrinkApi, fetchIngredientFood, filterDrink,
@@ -35,7 +35,7 @@ function DrinksIdRecipe({ match }) {
   }, []);
 
   const recipes = {
-    id: 178319,
+    id: [idToBeFetched],
   };
 
   const obj = {
@@ -93,7 +93,7 @@ function DrinksIdRecipe({ match }) {
     }
 
     const isMealInFavorites = favoriteRecipes
-      .findIndex((favoriteMeal) => favoriteMeal.id === drinkObj.id) !== num2;
+      .findIndex((favoriteMeal) => favoriteMeal.id === drinkObj.id) !== NEGATIVEONE;
 
     if (isMealInFavorites) {
       favoriteRecipes = favoriteRecipes
@@ -170,7 +170,7 @@ function DrinksIdRecipe({ match }) {
               {!ingredientFoodValue.meals ? (
                 ''
               ) : (
-                ingredientFoodValue.meals.slice(0, num).map((meal, index) => (
+                ingredientFoodValue.meals.slice(0, SIX).map((meal, index) => (
                   <div key={ index } className="scroll2">
                     <img
                       src={ meal.strMealThumb }
@@ -196,6 +196,7 @@ function DrinksIdRecipe({ match }) {
           >
             {
               idToBeFetched !== storageString2 ? 'Continue Recipe' : 'Start Recipe'
+
             }
           </button>
         </div>

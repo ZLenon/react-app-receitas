@@ -20,12 +20,8 @@ function FetchNameApi({ children }) {
   const fetchIngredientFood = async (letter, method, ingredient) => {
     setLoading(true);
     const url = `https://www.themealdb.com/api/json/v1/1/${method}.php?${letter}=${ingredient}`;
-
     const ingredientFood = await fetch(url);
-
     const ingredientJson = await ingredientFood.json();
-
-    console.log(ingredientJson);
 
     if (ingredientJson.meals === null) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
@@ -49,24 +45,16 @@ function FetchNameApi({ children }) {
         .filter((ingredientes) => ingredientes[0].includes('strMeasure'));
 
       setMeasure(filterMeasured);
-
       setFilterIngredient(ingredientFoods);
     }
     setIngredient(ingredientJson);
-
     setLoading(false);
   };
-
   const fetchDrinkApi = async (letter, method, ingredient) => {
     setLoading(true);
-
     const url = `https://www.thecocktaildb.com/api/json/v1/1/${method}.php?${letter}=${ingredient}`;
-
     const drinkResults = await fetch(url);
-
     const drinkJson = await drinkResults.json();
-
-    console.log(drinkJson);
 
     if (drinkJson.drinks === null) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
@@ -83,7 +71,6 @@ function FetchNameApi({ children }) {
         .filter((ingredientes) => ingredientes[0].includes('strIngredient'));
 
       const measureEntries = Object.entries(drinkJson.drinks[0]);
-
       const drinkFilterMeasured = measureEntries
         .filter((ingredientFiltered) => ingredientFiltered[1] !== ' ')
         .filter((ingredientFiltered) => ingredientFiltered[1] !== '')
@@ -91,14 +78,11 @@ function FetchNameApi({ children }) {
         .filter((ingredientes) => ingredientes[0].includes('strMeasure'));
 
       setDrinkMeasure(drinkFilterMeasured);
-
       setFilterDrink(ingredientDrinks);
     }
-
     setDrink(drinkJson);
     setLoading(false);
   };
-
   const saveAllData = useMemo(() => ({
     fetchIngredientFood,
     fetchDrinkApi,
@@ -113,17 +97,13 @@ function FetchNameApi({ children }) {
     isChecked,
   }), [isLoading, ingredientFoodValue, drinkValue, filterIngredient,
     filterMeasure, filterDrink, drinkMeasure, isChecked]);
-
   return (
     <FetchRecipeContext.Provider value={ saveAllData }>
       { children }
     </FetchRecipeContext.Provider>
-
   );
 }
-
 FetchNameApi.propTypes = {
   children: propTypes.element.isRequired,
 };
-
 export default FetchNameApi;

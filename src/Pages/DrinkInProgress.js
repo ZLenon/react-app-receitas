@@ -2,19 +2,23 @@ import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { FetchRecipeContext } from '../Context/FetchRecipes';
 import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import favoriteImg from '../images/blackHeartIcon.svg';
+import notFavoriteImg from '../images/whiteHeartIcon.svg';
 import '../css/Recipes.css';
+
+const num2 = -1;
 
 function DrinkInProgress({ match }) {
   const { fetchDrinkApi, filterDrink, drinkValue,
     drinkMeasure, setIsChecked, isChecked } = useContext(FetchRecipeContext);
   const idToBeFetched = match.params.id;
   const [isDisabled, setDisabled] = useState(false);
+  const [copySuccess, setCopySuccess] = useState('');
+  const [isFavorite, setFavorite] = useState(false);
+  /* const [checkVoid, setCheckVoid] = useState([false]); */
   const checkboxesFromLocalStorage = JSON.parse(
     localStorage.getItem('inProgressRecipes'),
   );
-
-  const value = Object.values(isChecked);
 
   useEffect(() => {
     const resolvePromese = async () => {
@@ -25,6 +29,11 @@ function DrinkInProgress({ match }) {
     if (checkboxesFromLocalStorage) {
       setIsChecked(checkboxesFromLocalStorage);
     }
+    const storageFavorites = localStorage.getItem('favoriteRecipes') || [];
+
+    if (storageFavorites.includes(idToBeFetched)) {
+      setFavorite(true);
+    }
   }, []);
 
   useEffect(() => {
@@ -32,9 +41,55 @@ function DrinkInProgress({ match }) {
       'inProgressRecipes',
       JSON.stringify(isChecked),
     );
-    setDisabled(value.length === filterDrink.length && value
-      .every((valueChecked) => valueChecked === true));
+    setDisabled();
   }, [checkboxesFromLocalStorage]);
+
+  const handleCheck = ({ target: { name, checked } }) => {
+    setIsChecked({
+      ...isChecked,
+      [name]: checked,
+    });
+  };
+
+  const handleShareBtn = () => {
+    navigator.clipboard.writeText(`http://localhost:3000/drinks/${[idToBeFetched]}`).then(() => {
+      setCopySuccess('Link copiado!');
+    }, () => {
+      setCopySuccess('Erro ao copiar link');
+    });
+  };
+  const handleFavoritBtn = () => {
+    setFavorite(!isFavorite);
+    const drinksToFavorite = drinkValue.drinks[0];
+
+    const drinkObj = {
+      id: drinksToFavorite.idDrink,
+      type: 'drink',
+      nationality: '',
+      category: drinksToFavorite.strCategory,
+      alcoholicOrNot: drinksToFavorite.strAlcoholic,
+      name: drinksToFavorite.strDrink,
+      image: drinksToFavorite.strDrinkThumb,
+    };
+
+    let favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+
+    if (!Array.isArray(favoriteRecipes)) {
+      favoriteRecipes = [];
+    }
+
+    const isMealInFavorites = favoriteRecipes
+      .findIndex((favoriteMeal) => favoriteMeal.id === drinkObj.id) !== num2;
+
+    if (isMealInFavorites) {
+      favoriteRecipes = favoriteRecipes
+        .filter((favoriteMeal) => favoriteMeal.id !== drinkObj.id);
+    } else {
+      favoriteRecipes.push(drinkObj);
+    }
+
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+  };
 
   const handleClick = () => {
     console.log('clicou');
@@ -52,15 +107,24 @@ function DrinkInProgress({ match }) {
               <button
                 data-testid="share-btn"
                 type="button"
+                onClick={ handleShareBtn }
               >
                 <img src={ shareIcon } alt="shareIcon" />
               </button>
               <button
                 type="button"
                 data-testid="favorite-btn"
+                onClick={ handleFavoritBtn }
+                src={ isFavorite ? favoriteImg : notFavoriteImg }
               >
-                <img src={ whiteHeartIcon } alt="whiteHeartIcon" />
+                <img
+                  src={ isFavorite ? favoriteImg : notFavoriteImg }
+                  alt="FavoriteImg"
+                />
               </button>
+              {
+                !copySuccess ? '' : <span>Link copied!</span>
+              }
             </p>
 
             <img
@@ -71,7 +135,7 @@ function DrinkInProgress({ match }) {
               height="330"
             />
             <h1 data-testid="recipe-title">
-              {drinkValue.drinks.map((meal) => meal.strDrinks)}
+              {drinkValue.drinks.map((meal) => meal.strDrink)}
             </h1>
             <h2 data-testid="recipe-category">
               {drinkValue.drinks.map((meal) => meal.strCategory)}
@@ -94,13 +158,11 @@ function DrinkInProgress({ match }) {
                       checked={ isChecked[eachIngredient[1]] }
                       name={ eachIngredient[1] }
                       value={ eachIngredient[1] }
-                      onChange={ ({ target: { name, checked } }) => setIsChecked({
-                        ...isChecked,
-                        [name]: checked,
-                      }) }
+                      onChange={ handleCheck }
                       data-testid={ `${index}-ingredient-name-and-measure` }
                     />
-                    { `${eachIngredient[1]} : ${(drinkMeasure[index])[1]}` }
+                    { `${eachIngredient[1]} : ${drinkMeasure[index]
+                      ? drinkMeasure[index][1] : ''}` }
                   </div>
                 </label>
               ))
