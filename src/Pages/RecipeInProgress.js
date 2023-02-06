@@ -6,7 +6,7 @@ import favoriteImg from '../images/blackHeartIcon.svg';
 import notFavoriteImg from '../images/whiteHeartIcon.svg';
 import '../css/Recipes.css';
 
-const num2 = -1;
+const NEGATIVEONE = -1;
 
 function MealsIdRecipeProgress({ match }) {
   const { fetchIngredientFood, filterIngredient, ingredientFoodValue,
@@ -18,7 +18,6 @@ function MealsIdRecipeProgress({ match }) {
   const checkboxesFromLocalStorage = JSON.parse(
     localStorage.getItem('inProgressRecipes'),
   );
-  const value = Object.values(isChecked);
 
   useEffect(() => {
     const resolvePromese = async () => {
@@ -42,12 +41,20 @@ function MealsIdRecipeProgress({ match }) {
       JSON.stringify(isChecked),
     );
     /* value.length === filterIngredient.length  */
-    setDisabled(value
-      .every((valueChecked) => valueChecked === true));
+    setDisabled();
+    /* Object.values(isChecked)
+      .every((valueChecked) => valueChecked === true); */
   }, [checkboxesFromLocalStorage]);
 
+  const handleCheck = ({ target: { name, checked } }) => {
+    setIsChecked({
+      ...isChecked,
+      [name]: checked,
+    });
+  };
+
   const handleShareBtn = () => {
-    navigator.clipboard.writeText(window.location.href).then(() => {
+    navigator.clipboard.writeText(`http://localhost:3000/meals/${[idToBeFetched]}`).then(() => {
       setCopySuccess('Link copiado!');
     }, () => {
       setCopySuccess('Erro ao copiar link');
@@ -76,7 +83,7 @@ function MealsIdRecipeProgress({ match }) {
     }
 
     const isMealInFavorites = favoriteRecipes
-      .findIndex((favoriteMeal) => favoriteMeal.id === mealObj.id) !== num2;
+      .findIndex((favoriteMeal) => favoriteMeal.id === mealObj.id) !== NEGATIVEONE;
 
     if (isMealInFavorites) {
       favoriteRecipes = favoriteRecipes
@@ -155,13 +162,11 @@ function MealsIdRecipeProgress({ match }) {
                       checked={ isChecked[eachIngredient[1]] }
                       name={ eachIngredient[1] }
                       value={ eachIngredient[1] }
-                      onChange={ ({ target: { name, checked } }) => setIsChecked({
-                        ...isChecked,
-                        [name]: checked,
-                      }) }
+                      onChange={ handleCheck }
                       data-testid={ `${index}-ingredient-name-and-measure` }
                     />
-                    { `${eachIngredient[1]} : ${(filterMeasure[index])[1]}` }
+                    { `${eachIngredient[1]} : ${filterMeasure[index]
+                      ? (filterMeasure[index][1]) : ''}` }
                   </div>
                 </label>
               ))

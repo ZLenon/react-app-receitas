@@ -20,8 +20,6 @@ function DrinkInProgress({ match }) {
     localStorage.getItem('inProgressRecipes'),
   );
 
-  const value = Object.values(isChecked);
-
   useEffect(() => {
     const resolvePromese = async () => {
       await fetchDrinkApi('i', 'lookup', idToBeFetched);
@@ -43,16 +41,18 @@ function DrinkInProgress({ match }) {
       'inProgressRecipes',
       JSON.stringify(isChecked),
     );
-    /*  setCheckVoid([
-      Object.values(isChecked),
-    ]); */
-    /* value.length === filterDrink.length &&  */
-    setDisabled(value
-      .every((valueChecked) => valueChecked === true));
+    setDisabled();
   }, [checkboxesFromLocalStorage]);
 
+  const handleCheck = ({ target: { name, checked } }) => {
+    setIsChecked({
+      ...isChecked,
+      [name]: checked,
+    });
+  };
+
   const handleShareBtn = () => {
-    navigator.clipboard.writeText(window.location.href).then(() => {
+    navigator.clipboard.writeText(`http://localhost:3000/drinks/${[idToBeFetched]}`).then(() => {
       setCopySuccess('Link copiado!');
     }, () => {
       setCopySuccess('Erro ao copiar link');
@@ -158,13 +158,11 @@ function DrinkInProgress({ match }) {
                       checked={ isChecked[eachIngredient[1]] }
                       name={ eachIngredient[1] }
                       value={ eachIngredient[1] }
-                      onChange={ ({ target: { name, checked } }) => setIsChecked({
-                        ...isChecked,
-                        [name]: checked,
-                      }) }
+                      onChange={ handleCheck }
                       data-testid={ `${index}-ingredient-name-and-measure` }
                     />
-                    { `${eachIngredient[1]} : ${(drinkMeasure[index])[1]}` }
+                    { `${eachIngredient[1]} : ${drinkMeasure[index]
+                      ? drinkMeasure[index][1] : ''}` }
                   </div>
                 </label>
               ))
