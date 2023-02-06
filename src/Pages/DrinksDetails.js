@@ -189,7 +189,7 @@ function DrinksIdRecipe({ match }) {
           <button
             type="button"
             data-testid="start-recipe-btn"
-            className={ idToBeFetched !== storageString
+            className={ idToBeFetched === storageString
               ? 'hidden' : 'btn-details' }
             // className="btn-details"
             onClick={ handleClick }
