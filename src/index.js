@@ -4,7 +4,6 @@ import './index.css';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-// import FetchNameApi from './Context/FetchNameApi';
 import FetchNameApi from './Context/FetchRecipes';
 
 ReactDOM
